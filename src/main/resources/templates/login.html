@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<header th:insert="fragments/header.html :: header"></header>
+<div th:if="${param.error}" style="color:red;">
+	<p>Invalid</p>
+</div>
+<div th:if="${param.logout}" style="color:red;">
+	<p>you are now logged out</p>
+</div>
+
+<form action="#" th:action="@{/login}" method="post">
+<p>User Name: <input type="text" name="username" /></p>
+<p>Password: <input type="text" name="password" /></p>
+	<input type="submit" value="Log In" />
+</form>
+
+<p><a href="/" th:href="@{/}">Back to index</a>
+<footer th:insert="fragments/footer.html :: footer(name='Arif Faysal')"></footer>
+</body>
+</html>

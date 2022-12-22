@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to our library!</title>
+<!-- 
+<link rel="../static/css/styles.css" 
+	href="../static/css/styles.css" 
+	th:href="@{/css/styles.css}"
+	type="text/css" media="all" />
+-->
+<style>
+table, th, td {
+  	border: 1px solid;
+}
+</style>
+</head>
+<body>
+
+<header th:insert="fragments/header.html :: header"></header>
+
+<h1>Welcome to the library database</h1>
+<br>
+
+<div th:if="${session.message}"  style="color:green;">
+	<p th:text="${session.message}"></p>
+</div>
+
+<div th:if="${param.error}" style="color:red;">
+	<p>Invalid</p>
+</div>
+<div th:if="${param.logout}" style="color:red;">
+	<p>you are now logged out</p>
+</div>
+
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Author</th>
+		<th>Reviews</th>
+	</tr>
+	<tr th:each="book : ${bookList}">
+		<td th:text="${book.title}"></td>
+		<td th:text="${book.author}"></td>
+		<td>
+			<a href="#" th:href="@{/viewBook/}+${book.id}">View</a>
+		</td>
+	</tr>
+</table>
+
+<br><br>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <p><a href="#" th:href="@{/admin/addBook}"> Add Book</a> </p>
+</div>
+
+<br><br>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    <form action="#" th:action="@{/logout}" method="post">
+    	<input type="submit" value="Logout">
+	</form>
+</div>
+
+<div sec:authorize="!hasRole('ROLE_ADMIN') && !hasRole('ROLE_USER')">
+	
+	Login<a href="#" th:href="@{/login}"> here</a>
+	<br>
+	<br>
+	Register<a href="#" th:href="@{/register}"> here</a>
+
+</div>
+	<footer th:insert="fragments/footer.html :: footer(name='Arif Faysal')"></footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to our library!</title>
+<!-- 
+<link rel="../static/css/styles.css" 
+	href="../static/css/styles.css" 
+	th:href="@{/css/styles.css}"
+	type="text/css" media="all" />
+-->
+<style>
+table, th, td {
+  	border: 1px solid;
+}
+</style>
+</head>
+<body>
+<h1>Add a Book</h1>
+<br>
+
+<div th:if="${param.error}" style="color:red;">
+	<p>Invalid</p>
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <form action="#" th:action="@{/admin/addBook}" method="post" th:object="${book}">
+    	<p>Title: <input type="text" name="title" th:field="*{title}" required /></p>
+    	<p>Author: <input type="text" name="author" th:field="*{author}" required /></p>
+    	<input type="submit" value="Add">
+	</form>
+	<br>
+	<p><a href="/" th:href="@{/}">Back to index</a>
+	
+	<br></br>
+	<form action="#" th:action="@{/logout}" method="post">
+    	<input type="submit" value="Logout">
+	</form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to our library!</title>
+<!-- 
+<link rel="../static/css/styles.css" 
+	href="../static/css/styles.css" 
+	th:href="@{/css/styles.css}"
+	type="text/css" media="all" />
+-->
+<style>
+table, th, td {
+  	border: 1px solid;
+}
+</style>
+</head>
+<body>
+<h1 th:text="${reviewPageHeader}"></h1>
+<br>
+
+<div th:if="${session.message}"  style="color:green;">
+	<p th:text="${session.message}"></p>
+</div>
+
+<div th:if="${reviewList==null or reviewList.empty}">
+	<h2>No reviews yet, be the first person to review it</h2>
+</div>
+
+<div th:unless="${reviewList==null or reviewList.empty}">
+	<ul th:each="review : ${reviewList}">
+		<li th:text="${review.text}"></li>
+	</ul>
+</div>
+
+<br><br>
+
+<div sec:authorize="hasRole('ROLE_USER')">
+    <p><a href="#" th:href="@{/user/addReview/}+${bookId}"> Add Review</a> </p>
+    <form action="#" th:action="@{/logout}" method="post">
+    	<input type="submit" value="Logout">
+	</form>
+	<br>
+    <p><a href="/" th:href="@{/}">Back to index</a>
+</div>
+
+<div sec:authorize="!hasRole('ROLE_ADMIN') && !hasRole('ROLE_USER')">
+	<p>Want to leave a review? <a href="#" th:href="@{/login}">Login here</a></p>
+	<br>
+	<a href="#" th:href="@{/}">Back to index</a>
+</div>
+</body>
+</html>

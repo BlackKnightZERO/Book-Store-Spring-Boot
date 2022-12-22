@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add a User</title>
+<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+<link rel="../static/css/styles.css" type="text/css" media="all"
+	href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header th:insert="fragments/header.html :: header"></header>
+<h1>Register</h1>
+
+<div id="error" class="error"></div>
+
+<form name="form" action="#" th:action="@{/register}" method="POST" onsubmit="return verify()">
+	<table>
+		<tr>
+			<td>User Name:</td>
+			<td>
+				<input type="text" name="userName">
+			</td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td>
+				<input type="password" name="password">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Register" />
+			</td>
+		</tr>
+	</table>
+</form>
+<br>
+<p><a href="/" th:href="@{/}">Back to index</a>
+<footer th:insert="fragments/footer.html :: footer(name='Arif Faysal')"></footer>
+</body>
+</html>
